@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3400" systemVersion="13A603" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Evento" representedClassName="Evento" syncable="YES">
+        <attribute name="descripcionEvento" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="horaFin" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="horaInicio" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="jornada" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="patrocionio" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="tematica" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tipoEvento" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="titulo" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="eventoPadre" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Eventopadre" inverseName="eventoHijo" inverseEntity="Eventopadre" syncable="YES"/>
+        <relationship name="imagenEvento" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Imagen" inverseName="eventoQueGrafico" inverseEntity="Imagen" syncable="YES"/>
+        <relationship name="institucionPatrocinante" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Institucion" inverseName="eventoQuePatrocino" inverseEntity="Institucion" syncable="YES"/>
+        <relationship name="lugarEnQueMeDesarrollo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Lugar" inverseName="eventoLugar" inverseEntity="Lugar" syncable="YES"/>
+        <relationship name="notificacionMeReferencia" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Notificacion" inverseName="eventoAsociado" inverseEntity="Notificacion" syncable="YES"/>
+        <relationship name="speaker" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Persona" inverseName="eventoQueDicto" inverseEntity="Persona" syncable="YES"/>
+    </entity>
+    <entity name="Eventopadre" representedClassName="Eventopadre" syncable="YES">
+        <attribute name="descripcionEP" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="horaFinEP" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="horaInicioEP" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="jornadaEP" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="patrocinioEP" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="tipoEP" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tituloEP" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="eventoHijo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Evento" inverseName="eventoPadre" inverseEntity="Evento" syncable="YES"/>
+        <relationship name="imagenEventoPadre" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Imagen" inverseName="eventoPadreQueGrafico" inverseEntity="Imagen" syncable="YES"/>
+        <relationship name="institucionPatrocinante" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Institucion" inverseName="eventoPadreQuePatrocino" inverseEntity="Institucion" syncable="YES"/>
+        <relationship name="lugarEnQueMeDesarrollo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Lugar" inverseName="eventoPadreLugar" inverseEntity="Lugar" syncable="YES"/>
+        <relationship name="participantes" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Persona" inverseName="eventoParticipo" inverseEntity="Persona" syncable="YES"/>
+    </entity>
+    <entity name="Imagen" representedClassName="Imagen" syncable="YES">
+        <attribute name="binarioImagen" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="nombre" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tipoImagen" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="eventoPadreQueGrafico" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Eventopadre" inverseName="imagenEventoPadre" inverseEntity="Eventopadre" syncable="YES"/>
+        <relationship name="eventoQueGrafico" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Evento" inverseName="imagenEvento" inverseEntity="Evento" syncable="YES"/>
+        <relationship name="personaQueGrafico" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Persona" inverseName="fotoPersona" inverseEntity="Persona" syncable="YES"/>
+    </entity>
+    <entity name="Institucion" representedClassName="Institucion" syncable="YES">
+        <attribute name="descripcionInstitucion" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nombreInstitucion" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tipoInstitucion" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="eventoPadreQuePatrocino" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Eventopadre" inverseName="institucionPatrocinante" inverseEntity="Eventopadre" syncable="YES"/>
+        <relationship name="eventoQuePatrocino" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Evento" inverseName="institucionPatrocinante" inverseEntity="Evento" syncable="YES"/>
+        <relationship name="lugarEnqueEstoy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Lugar" inverseName="institucionAqui" inverseEntity="Lugar" syncable="YES"/>
+        <relationship name="personaQuePatrocino" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Persona" inverseName="institucionQueMePatrocina" inverseEntity="Persona" syncable="YES"/>
+    </entity>
+    <entity name="Lugar" representedClassName="Lugar" syncable="YES">
+        <attribute name="ciudad" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nombreLugar" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pais" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="eventoLugar" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Evento" inverseName="lugarEnQueMeDesarrollo" inverseEntity="Evento" syncable="YES"/>
+        <relationship name="eventoPadreLugar" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Eventopadre" inverseName="lugarEnQueMeDesarrollo" inverseEntity="Eventopadre" syncable="YES"/>
+        <relationship name="institucionAqui" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Institucion" inverseName="lugarEnqueEstoy" inverseEntity="Institucion" syncable="YES"/>
+        <relationship name="personaDelQueSoyProcedencia" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Persona" inverseName="lugarDondeProvengo" inverseEntity="Persona" syncable="YES"/>
+    </entity>
+    <entity name="Notificacion" representedClassName="Notificacion" syncable="YES">
+        <attribute name="almacenado" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="contenidoNoti" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="esBoton" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="fechaPublicacion" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="urlNotificacion" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="eventoAsociado" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Evento" inverseName="notificacionMeReferencia" inverseEntity="Evento" syncable="YES"/>
+        <relationship name="personaAsociada" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Persona" inverseName="notificacionSobreMi" inverseEntity="Persona" syncable="YES"/>
+    </entity>
+    <entity name="Persona" representedClassName="Persona" syncable="YES">
+        <attribute name="bio" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cargo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nombre" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rol" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tratamiento" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="eventoParticipo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Eventopadre" inverseName="participantes" inverseEntity="Eventopadre" syncable="YES"/>
+        <relationship name="eventoQueDicto" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Evento" inverseName="speaker" inverseEntity="Evento" syncable="YES"/>
+        <relationship name="fotoPersona" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Imagen" inverseName="personaQueGrafico" inverseEntity="Imagen" syncable="YES"/>
+        <relationship name="institucionQueMePatrocina" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Institucion" inverseName="personaQuePatrocino" inverseEntity="Institucion" syncable="YES"/>
+        <relationship name="lugarDondeProvengo" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Lugar" inverseName="personaDelQueSoyProcedencia" inverseEntity="Lugar" syncable="YES"/>
+        <relationship name="notificacionSobreMi" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Notificacion" inverseName="personaAsociada" inverseEntity="Notificacion" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Evento" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Eventopadre" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Imagen" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Institucion" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Lugar" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Notificacion" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Persona" positionX="0" positionY="0" width="0" height="0"/>
+    </elements>
+</model>
